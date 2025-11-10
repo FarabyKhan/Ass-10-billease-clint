@@ -9,6 +9,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AuthLayout from "../Layout/AuthLayout";
 import MyProfile from "../Pages/MyProfile";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -28,11 +29,15 @@ const router = createBrowserRouter([
         },
         {
             path: '/myPayBills',
-            element: <MyPayBills></MyPayBills>,
+            element: <PrivateRoute>
+              <MyPayBills></MyPayBills>
+            </PrivateRoute>,
         },
         {
             path: '/myProfile',
-            element: <MyProfile></MyProfile> ,
+            element: <PrivateRoute>
+              <MyProfile></MyProfile> 
+            </PrivateRoute>,
         },
 
     ]
