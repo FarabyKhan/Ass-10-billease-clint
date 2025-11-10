@@ -5,6 +5,11 @@ import Bills from "../Pages/Bills";
 import MyPayBills from "../Pages/MyPayBills";
 import Error from "../Pages/Error";
 import ErrorPage2 from "../Pages/ErrorPage2";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import AuthLayout from "../Layout/AuthLayout";
+import MyProfile from "../Pages/MyProfile";
+
 
 
 const router = createBrowserRouter([
@@ -25,9 +30,31 @@ const router = createBrowserRouter([
             path: '/myPayBills',
             element: <MyPayBills></MyPayBills>,
         },
+        {
+            path: '/myProfile',
+            element: <MyProfile></MyProfile> ,
+        },
+
     ]
     
   },
+  {
+    path: '/auth',
+    element: <AuthLayout></AuthLayout>,
+    children:[
+      
+          {
+    path: '/auth/login',
+    element: <Login></Login>
+    },
+
+     {
+    path: '/auth/register',
+    element:<Register></Register>
+     }, 
+    ]
+  },
+  
   {
     path: '/*',
     element: <Error></Error>

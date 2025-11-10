@@ -38,7 +38,7 @@ const HeroSection = () => {
         </SwiperSlide>
 
         <SwiperSlide >
-            <img src="/5.webp"  className='w-[100px] md:w-[200px] lg:w-full h-[100px] md:h-[200px] lg:h-full object-cover object-center' alt="" />
+            <img src="/5.jpg"  className='w-[100px] md:w-[200px] lg:w-full h-[100px] md:h-[200px] lg:h-full object-cover object-center' alt="" />
         </SwiperSlide>
         
         

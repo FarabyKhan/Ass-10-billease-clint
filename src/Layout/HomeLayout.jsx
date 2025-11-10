@@ -2,17 +2,16 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import HeroSection from '../Components/HeroSection';
+
 
 const HomeLayout = () => {
     return (
         <div className='mx-auto'>
             <nav className=''>
-                <HeroSection></HeroSection>
-                <Navbar></Navbar>
+                <Navbar></Navbar>    
             </nav>
 
-            <main>
+            <main className='min-h-screen mx-auto'>
                 <Outlet></Outlet>
             </main>
 

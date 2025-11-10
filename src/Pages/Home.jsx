@@ -1,9 +1,10 @@
 import React from 'react';
+import HeroSection from '../Components/HeroSection';
 
 const Home = () => {
     return (
-        <div>
-          <h1>This is home</h1>
+        <div className='min-h-screen mx-auto'>
+          <HeroSection></HeroSection>
         </div>
     );
 };
