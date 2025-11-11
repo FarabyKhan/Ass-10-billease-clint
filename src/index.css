@@ -4,14 +4,14 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #2563EB;
+  --color-primary: #276faa;
   --color-secondary: #10B981;
-  --color-accent: #10B981;
+  --color-accent: 	#708090;
 }
 
 .btn-primary {
-   background: linear-gradient(to right, #2563EB, #10B981);
-    border-color: rgb(108, 207, 224);
+   background: linear-gradient(to right, #276faa, #191186);
+   
   }
   .my-btn:hover {
     background-color: #97f3dc;

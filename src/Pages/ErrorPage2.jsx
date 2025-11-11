@@ -9,7 +9,7 @@ const ErrorPage2 = () => {
         <div className='flex flex-col items-center justify-center min-h-screen text-center'>
             <img src="/error-icon.png" alt="" />
             <h1 className='text-4xl font-bold'>{errorMessage}</h1>
-            <Link to={'/'} className='btn btn-primary'>Back To Home</Link>
+            <Link to={'/'} className='btn btn-primary my-5'>Back To Home</Link>
         </div>
     );
 };

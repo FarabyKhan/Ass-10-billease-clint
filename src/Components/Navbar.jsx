@@ -11,10 +11,10 @@ const Navbar = () => {
   const { user, signOutUser, loading } = use(AuthContext)
 
   const links = <>
-    <MyLink className={'text-xl font-bold'} to={'/'}>Home</MyLink>
+    <MyLink className={'text-xl font-bold'} to={'/'}> Home</MyLink>
     <MyLink className={'text-xl font-bold'} to={'/bills'}>Bills</MyLink>
     <MyLink className={'text-xl font-bold'} to={'/myPayBills'}>My Pay Bills</MyLink>
-    <MyLink className={'text-xl font-bold'} to={'/myPayBills'}>My Profile</MyLink>
+    <MyLink className={'text-xl font-bold'} to={'/my-Profile'}>My Profile</MyLink>
   </>
 
   const handleSignOut = () => {
@@ -43,8 +43,10 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <Link to={"/"}>
-            <img src="/billease-min.png" className='h-[70px] w-[70px]' alt="" />
+          <Link to={"/"} className='flex justify-center items-center gap-1 '>
+           <h1 className='text-4xl font-bold  text-[#191186]'>bill<span className='text-4xl
+            text-[#DC143C]'>ease</span></h1>
+            <img src="/billease.svg" alt="" className= 'h-[50px] w-[50px]' />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -83,16 +85,18 @@ const Navbar = () => {
                         <FaUser /> My Profile
                       </Link>
                     </li>
-
+                  <li className='mt-1'>
+                    <button onClick={handleSignOut} className='btn btn-primary'>Logout</button>
+                  </li>
                   </ul>
                 </div>
-                <button onClick={handleSignOut} className='btn btn-primary'>Logout</button>
+                
               </div>
             ) :
 
               (<div className='flex justify-between items-center gap-3'>
                 <Link to={'/auth/login'} className='btn btn-primary'>Login</Link>
-                <Link to={'/auth/register'} className='btn btn-primary '>Register</Link>
+                <Link to={'/auth/register'} className='btn border-secondary text-secondary '>Register</Link>
               </div>)
 
             )}

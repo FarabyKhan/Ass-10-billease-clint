@@ -4,6 +4,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+
+
 const HeroSection = () => {
     return (
         <div className='w-full h-[50vh] md:h-[70vh] lg:h-[80vh]  overflow-hidden my-20 md:my-5'>
@@ -23,6 +26,7 @@ const HeroSection = () => {
       >
         <SwiperSlide >
             <img src="/1.jpg"  className='w-[100px] md:w-[200px] lg:w-full h-[100px] md:h-[200px] lg:h-full object-cover object-center' alt="" />
+             
         </SwiperSlide>
 
         <SwiperSlide >
