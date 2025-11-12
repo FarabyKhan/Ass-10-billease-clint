@@ -1,13 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router';
 import Lottie from 'lottie-react';
-import pageNotFound from '../assets/Page Not Found 404.json'
-
-const Error = () => {
+import React from 'react';
+import loadingAn from '../assets/Loading.json'
+const Loading = () => {
     return (
         <div className='flex justify-center items-center min-h-screen space-y-10'>
            <Lottie
-           animationData={pageNotFound}
+           animationData={loadingAn}
            loop={true}
            style={{ width: 800, height: 800 }}
            />
@@ -15,4 +13,4 @@ const Error = () => {
     );
 };
 
-export default Error;
+export default Loading;

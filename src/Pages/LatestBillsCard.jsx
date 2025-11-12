@@ -3,10 +3,11 @@ import { CgDetailsMore } from 'react-icons/cg';
 import { FaLocationDot } from 'react-icons/fa6';
 import { SlCalender } from 'react-icons/sl';
 import { TbCategory } from "react-icons/tb";
+import { Link } from 'react-router';
 
 
 const LatestBillsCard = ({bills}) => {
-    const {image,title, category, location, date} = bills;
+    const {_id, image,title, category, location, date} = bills;
     return (
         <div className="card  rounded-2xl bg-base-100 w-11/12 shadow-sm hover:scale-105
          transition ease-in-out ">
@@ -29,7 +30,7 @@ const LatestBillsCard = ({bills}) => {
      <p className='font-bold text-xl my-2 text-center flex items-center gap-1 text-accent'><FaLocationDot />Location: <span className='text-black'>{location}</span></p>
     
   </div>   
-  <button className='btn btn-primary rounded-xl'><CgDetailsMore /> See Details</button>                   
+  <Link to={`/billDetails/${_id}`} className='btn btn-primary py-3 rounded-xl'><CgDetailsMore /> See Details</Link>                   
 </div>
                         
     );

@@ -67,10 +67,11 @@ const Register = () => {
                         .then(res=> res.json())
                         .then(data=>{
                             console.log('User save to the collection:',data); 
+                               navigate("/")
                         })
                         .catch((err)=>{
                             console.error('Error saving user:',err)
-                            navigate("/")
+                         
                         })
                     })
                     .catch((error) => {
