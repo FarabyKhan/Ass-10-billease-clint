@@ -33,7 +33,7 @@ const Bills = () => {
     }
     return (
         <div className='flex flex-col justify-center items-center my-5'>
-            <div className='w-11/12 mx-auto my-20 '>
+            <div className='w-11/12 mx-auto my-10 '>
                 <h1 className='text-center text-4xl mb-15 font-semibold text-primary'>All The Bills </h1>
                 <div className="dropdown dropdown-bottom">
 

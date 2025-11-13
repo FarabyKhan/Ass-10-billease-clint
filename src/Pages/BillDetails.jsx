@@ -1,9 +1,10 @@
 import React, { use, useEffect, useState } from 'react';
-import { data, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import LoadingElements from '../Utility/LoadingElements';
 import { AuthContext } from '../Provider/AuthContext';
+import Swal from 'sweetalert2';
 
-// loader:({params})=> fetch(`http://localhost:3000/bills/${params.id}`),
+
 
 
 
@@ -13,6 +14,7 @@ const BillDetails = () => {
     const [loading, setLoading] = useState({})
     const [message, setMessage] = useState("")
     const [modal, setModal] = useState(false)
+    const [paid, setPaid] = useState(false)
 
     const { user } = use(AuthContext)
 
@@ -25,6 +27,23 @@ const BillDetails = () => {
                 setLoading(false)
             })
     }, [id])
+
+    useEffect(() => {
+        if (user?.email) {
+            fetch(`http://localhost:3000/myBills?email=${user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.paid) {
+                        setPaid(true)
+                        setMessage("You've already paid this bill")
+                    }
+
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
+    }, [user])
 
     if (loading)
         return <LoadingElements></LoadingElements>
@@ -50,19 +69,23 @@ const BillDetails = () => {
         }
     }
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target;
         const paymentInfo = {
             email: form.email.value,
             billId: form.billId.value,
+            billTitle: form.billTitle.value,
             amount: form.amount.value,
             username: form.username.value,
             address: form.address.value,
             phone: form.phone.value,
+
         }
 
-        fetch('http://localhost:3000/payments', {
+        fetch('http://localhost:3000/myBills', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(paymentInfo)
@@ -71,6 +94,28 @@ const BillDetails = () => {
             .then(data => {
                 setMessage(data.message)
                 setModal(false)
+
+                if (data.message === "Payment is successful") {
+                    Swal.fire({
+                        position: "middle",
+                        icon: "success",
+                        title: "Payment is successful",
+                        text: 'Your bill has been paid successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
+                else {
+                    Swal.fire({
+                        position: "middle",
+                        icon: "error",
+                        title: "Payment Failed",
+                        text: data.message,
+                        showConfirmButton: true,
+                        timer: 1500
+                    });
+                }
             })
             .catch(err => {
                 console.error(err);
@@ -109,8 +154,9 @@ const BillDetails = () => {
                     </div>
 
                     <div className="card-actions flex flex-row justify-between items-center mx-20 gap-35">
-                        <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/tk.png" alt="" className='w-[30px] h-[30px]' /><span className='text-green-600'>{amount}</span></p>
-                        <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/calendr.png" alt="" className='w-[30px] h-[30px]' /><span className='text-red-500'>{date}</span></p>
+                        <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/tk.png" alt="" className='w-[30px] h-[30px]' /><span className='text-accent'>{amount}</span></p>
+                        
+                        <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/calendr.png" alt="" className='w-[30px] h-[30px]' /><span className='text-accent'>{date}</span></p>
 
                     </div>
                     <div className="card-actions my-10">
@@ -135,7 +181,7 @@ const BillDetails = () => {
 
                 <dialog open className="modal modal-bottom sm:modal-middle">
                     <div onClick={e => e.stopPropagation()} className="modal-box">
-                        <p className="text-center">Pay Your Bill </p>
+                        <p className="text-center text-3xl text-primary font-semibold">Pay Your Bill </p>
                         <form onSubmit={handleSubmit} className='space-y-2'>
                             <div className="modal-action">
                                 <div className="card-body">
@@ -147,6 +193,9 @@ const BillDetails = () => {
 
                                         <label className="label">Bill Id</label>
                                         <input type="text" name='billId' defaultValue={id} className="input" placeholder="Bill Id" readOnly />
+
+                                        <label className="label">Name Of The Bill</label>
+                                        <input type="text" name='billTitle' defaultValue={title} className="input" placeholder="Name Of The Bill" readOnly />
 
                                         <label className="label">Amount</label>
                                         <input type="number" name='amount' defaultValue={amount} className="input" placeholder="Amount" readOnly />

@@ -4,8 +4,8 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #276faa;
-  --color-secondary: #10B981;
+  --color-primary: #2563eb;
+  --color-secondary: #6366f1;
   --color-accent: 	#708090;
 }
 
