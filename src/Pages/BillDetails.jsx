@@ -82,6 +82,7 @@ const BillDetails = () => {
             username: form.username.value,
             address: form.address.value,
             phone: form.phone.value,
+            date: form.date.value,
 
         }
 
@@ -185,28 +186,43 @@ const BillDetails = () => {
                         <form onSubmit={handleSubmit} className='space-y-2'>
                             <div className="modal-action">
                                 <div className="card-body">
-                                    <fieldset className="fieldset space-y-2">
+                                    <fieldset className="fieldset space-y-1">
 
-                                        <label className="label">Email</label>
-                                        <input type="email" name='email' defaultValue={user?.email || ""} className="input" placeholder="Email" readOnly />
+                                    <div className='flex justify-center items-center gap-5'>
+                                        <div className=''>
+                                        <label className="label text-sm font-semibold">Email</label>
+                                    <input type="email" name='email' defaultValue={user?.email || ""}className="input w-full" placeholder="Email" readOnly />
+                                    </div>
 
 
-                                        <label className="label">Bill Id</label>
-                                        <input type="text" name='billId' defaultValue={id} className="input" placeholder="Bill Id" readOnly />
+                                       <div className=''>
+                                        <label className="label text-sm font-semibold">Bill Id</label>
+                                       <input type="text" name='billId' defaultValue={id} className="input"placeholder="Bill Id" readOnly />
+                                       </div>
+                                    </div>
 
-                                        <label className="label">Name Of The Bill</label>
-                                        <input type="text" name='billTitle' defaultValue={title} className="input" placeholder="Name Of The Bill" readOnly />
+                                       <label className="label text-sm font-semibold">Name Of The Bill</label>
+                                       <input type="text" name='billTitle' defaultValue={title}className="input" placeholder="Name Of The Bill" readOnly />
 
-                                        <label className="label">Amount</label>
-                                        <input type="number" name='amount' defaultValue={amount} className="input" placeholder="Amount" readOnly />
+                                    <div className='flex justify-center items-center gap-5'>
+                                        <div>
+                                            <label className="label text-sm font-semibold">Amount</label>
+                                    <input type="number" name='amount' defaultValue={amount}className="input" placeholder="Amount" readOnly />
+                                        </div>
 
-                                        <label className="label">Your Name</label>
-                                        <input type="text" name='username' required className="input" placeholder="Your Name" />
+                                    <div>
+                                        <label className="label text-sm font-semibold">Date</label>
+                                    <input type="date" name='date' defaultValue={date}className="input" placeholder="Date" readOnly />
+                                    </div>
+                                    </div>
 
-                                        <label className="label">Your Address</label>
-                                        <input type="text" name='address' required className="input" placeholder="Your Address" />
+                                    <label className="label text-sm font-semibold">Your Name</label>
+                                    <input type="text" name='username' required className="input"placeholder="Your Name" />
 
-                                        <label className="label">Phone Number</label>
+                                    <label className="label text-sm font-semibold">Your Address</label>
+                                       <input type="text" name='address' required className="input"placeholder="Your Address" />
+
+                                    <label className="label text-sm font-semibold">Phone Number</label>
                                         <input type="text" name='phone' required className="input" placeholder="Phone Number" />
 
 

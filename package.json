@@ -12,8 +12,11 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "dotenv": "^17.2.3",
+    "file-saver": "^2.0.5",
     "firebase": "^12.5.0",
     "icons": "^1.0.0",
+    "jspdf": "^3.0.3",
+    "jspdf-autotable": "^5.0.2",
     "lottie-react": "^2.4.1",
     "react": "^19.2.0",
     "react-dom": "^19.1.1",
