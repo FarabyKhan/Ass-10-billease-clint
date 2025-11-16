@@ -19,18 +19,28 @@ const BillDetails = () => {
     const { user } = use(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/bills/${id}`)
+        fetch(`http://localhost:3000/bills/${id}`, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setBill(data)
                 setLoading(false)
             })
-    }, [id])
+    }, [id, user])
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/myBills?email=${user.email}`)
+            fetch(`http://localhost:3000/myBills?email=${user.email}`,{
+                headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+            }
+
+            )
                 .then(res => res.json())
                 .then(data => {
                     if (data.paid) {
@@ -88,7 +98,10 @@ const BillDetails = () => {
 
         fetch('http://localhost:3000/myBills', {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${user.accessToken}`
+            },
             body: JSON.stringify(paymentInfo)
         })
             .then(res => res.json())
@@ -135,28 +148,28 @@ const BillDetails = () => {
 
 
     return (
-        <div className='min-h-screen my-30'>
+        <div className='min-h-screen my-30 '>
             <div className="flex flex-col md:flex-row justify-center items-center bg-base-100 shadow-sm gap-15">
                 <figure>
                     <img
-                        className='h-[450px] w-[450px] object-cover mt-5'
+                        className='h-80 w-full max-w-sm object-cover mt-5'
                         src={image}
                         alt={category} />
                 </figure>
-                <div className="flex flex-col items-start space-y-3 my-20">
+                <div className="flex flex-col w-11/12 md:w-4/12 items-start space-y-3 my-20">
                     <div className='space-y-3 flex justify-center items-center gap-2'>
                         <img src={categoryLogo} className='w-[50px] h-[50px] mt-4' alt={category} />
-                        <h2 className="card-title text-4xl text-accent"> {title}</h2>
+                        <h2 className="card-title text-2xl text-accent"> {title}</h2>
                     </div>
-                    <div className='w-full border-b border-primary  space-y-5 pb-10 '>
+                    <div className='w-full border-b border-primary text-center space-y-5 pb-10 '>
                         <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/category.png" alt="" className='w-[30px] h-[30px]' />Category:<span className='text-primary'>{category}</span></p>
 
                         <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/location.png" alt="" className='w-[30px] h-[30px]' />Location:<span>{location}</span></p>
                     </div>
 
-                    <div className="card-actions flex flex-row justify-between items-center mx-20 gap-35">
+                    <div className="card-actions flex flex-row justify-between items-center mx-auto gap-35">
                         <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/tk.png" alt="" className='w-[30px] h-[30px]' /><span className='text-accent'>{amount}</span></p>
-                        
+
                         <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/calendr.png" alt="" className='w-[30px] h-[30px]' /><span className='text-accent'>{date}</span></p>
 
                     </div>
@@ -164,7 +177,7 @@ const BillDetails = () => {
                         <button
                             onClick={handlePayClick}
 
-                            className={`btn mx-20 w-80 ${isCurrentMonth ? "btn-primary" : " btn bg-red-500 text-white"}  `}>Pay Bill</button>
+                            className={`btn mx-8 md:mx-30 w-80 ${isCurrentMonth ? "btn-primary" : " btn bg-red-500 text-white"}  `}>Pay Bill</button>
                     </div>
                     {
                         message &&
@@ -188,41 +201,41 @@ const BillDetails = () => {
                                 <div className="card-body">
                                     <fieldset className="fieldset space-y-1">
 
-                                    <div className='flex justify-center items-center gap-5'>
-                                        <div className=''>
-                                        <label className="label text-sm font-semibold">Email</label>
-                                    <input type="email" name='email' defaultValue={user?.email || ""}className="input w-full" placeholder="Email" readOnly />
-                                    </div>
+                                        <div className='flex justify-center items-center gap-5'>
+                                            <div className=''>
+                                                <label className="label text-sm font-semibold">Email</label>
+                                                <input type="email" name='email' defaultValue={user?.email || ""} className="input w-full" placeholder="Email" readOnly />
+                                            </div>
 
 
-                                       <div className=''>
-                                        <label className="label text-sm font-semibold">Bill Id</label>
-                                       <input type="text" name='billId' defaultValue={id} className="input"placeholder="Bill Id" readOnly />
-                                       </div>
-                                    </div>
-
-                                       <label className="label text-sm font-semibold">Name Of The Bill</label>
-                                       <input type="text" name='billTitle' defaultValue={title}className="input" placeholder="Name Of The Bill" readOnly />
-
-                                    <div className='flex justify-center items-center gap-5'>
-                                        <div>
-                                            <label className="label text-sm font-semibold">Amount</label>
-                                    <input type="number" name='amount' defaultValue={amount}className="input" placeholder="Amount" readOnly />
+                                            <div className=''>
+                                                <label className="label text-sm font-semibold">Bill Id</label>
+                                                <input type="text" name='billId' defaultValue={id} className="input" placeholder="Bill Id" readOnly />
+                                            </div>
                                         </div>
 
-                                    <div>
-                                        <label className="label text-sm font-semibold">Date</label>
-                                    <input type="date" name='date' defaultValue={date}className="input" placeholder="Date" readOnly />
-                                    </div>
-                                    </div>
+                                        <label className="label text-sm font-semibold">Name Of The Bill</label>
+                                        <input type="text" name='billTitle' defaultValue={title} className="input" placeholder="Name Of The Bill" readOnly />
 
-                                    <label className="label text-sm font-semibold">Your Name</label>
-                                    <input type="text" name='username' required className="input"placeholder="Your Name" />
+                                        <div className='flex justify-center items-center gap-5'>
+                                            <div>
+                                                <label className="label text-sm font-semibold">Amount</label>
+                                                <input type="number" name='amount' defaultValue={amount} className="input" placeholder="Amount" readOnly />
+                                            </div>
 
-                                    <label className="label text-sm font-semibold">Your Address</label>
-                                       <input type="text" name='address' required className="input"placeholder="Your Address" />
+                                            <div>
+                                                <label className="label text-sm font-semibold">Date</label>
+                                                <input type="date" name='date' defaultValue={date} className="input" placeholder="Date" readOnly />
+                                            </div>
+                                        </div>
 
-                                    <label className="label text-sm font-semibold">Phone Number</label>
+                                        <label className="label text-sm font-semibold">Your Name</label>
+                                        <input type="text" name='username' required className="input" placeholder="Your Name" />
+
+                                        <label className="label text-sm font-semibold">Your Address</label>
+                                        <input type="text" name='address' required className="input" placeholder="Your Address" />
+
+                                        <label className="label text-sm font-semibold">Phone Number</label>
                                         <input type="text" name='phone' required className="input" placeholder="Phone Number" />
 
 

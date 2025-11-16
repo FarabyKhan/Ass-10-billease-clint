@@ -7,13 +7,13 @@ import LoadingElements from '../Utility/LoadingElements';
 
 const HomeLayout = () => {
     return (
-        <div className='mx-auto'>
+        <div className='mx-auto '>
                 <LoadingElements>
                     <nav className=''>
                     <Navbar></Navbar>
                 </nav>
 
-                <main className='min-h-screen mx-auto my-20'>
+                <main className='min-h-screen  mx-auto my-10'>
                     <Outlet></Outlet>
                 </main>
 

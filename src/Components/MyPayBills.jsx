@@ -13,19 +13,19 @@ const MyPayBills = () => {
     const [selectedBill, setSelectedBill] = useState(null)
 
     useEffect(() => {
-        if(user?.email){
-            fetch(`http://localhost:3000/myBills?email=${user.email}`,{
-            headers:{
-                authorization: `Bearer ${user.accessToken}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                setMyBills(data)
+        if (user?.email) {
+            fetch(`http://localhost:3000/myBills?email=${user.email}`, {
+                headers: {
+                    authorization: `Bearer ${user.accessToken}`
+                }
             })
+                .then(res => res.json())
+                .then(data => {
+                    // console.log(data);
+                    setMyBills(data)
+                })
         }
-    }, [user?.email,user])
+    }, [user?.email, user])
 
     const totalAmount = myBills.reduce(
         (sum, bill) => sum + parseFloat(bill.amount || 0), 0
@@ -42,6 +42,7 @@ const MyPayBills = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
+
 
                 fetch(`http://localhost:3000/myBills/${_id}`, {
                     method: 'DELETE'
@@ -85,9 +86,9 @@ const MyPayBills = () => {
             email: user.email,
         }
 
+
         fetch(`http://localhost:3000/myBills/${updateBill._id}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updateInfo)
         })
             .then(res => res.json())
@@ -175,8 +176,8 @@ const MyPayBills = () => {
                 </div>
 
             </div>
-            <div className="overflow-x-auto w-full max-w-full">
-                <table className="table">
+            <div className="overflow-x-auto w-full">
+                <table className="table w-full min-w-max">
                     {/* head */}
                     <thead>
                         <tr>
@@ -198,40 +199,40 @@ const MyPayBills = () => {
 
                         {
 
-      myBills.map((myBill, index) => <tr key={myBill._id}>
-         <th>{index + 1}</th>
-         <td>
-             <div className="flex  items-center gap-3">
-                 <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                        <img
-                            src={user?.photoURL || "https://img.daisyuiimages/profile/demo/5@94.webp"}
-                            alt="Avatar Tailwind CSS Component" />
-                     </div>
-                 </div>
-                 <div>
-                    <div className="font-bold">{myBill.username}</div>
-                    <div className="text-sm opacity-50 my-1 ">{myBill.email}</div>
-                </div>
-            </div>
-         </td>
-            <td className='font-bold '>{myBill.billTitle}</td>
-                <td className=''>
-                {myBill.address}
-            </td>
-           
-            <td className='font-bold'>{myBill.amount} TK</td>
-            <td>
-                <p className="badge badge-ghost badge-sm">{myBill.phone}</p>
-            </td>
-            <td>
-               <td className='font-semibold'>{new Date(myBill.date).toLocaleDateString()}</td>
-            </td>
-            <td className='flex flex-warp gap-2'>
-                <button onClick={() => handleUpdateClick(myBill)} className='btn btn-primary'>Update</button>
-                <button onClick={() => handleDeleteBill(myBill._id)}
-                    className='btn border-red-500 text-red-500'>Delete</button>
-            </td>
+                            myBills.map((myBill, index) => <tr key={myBill._id}>
+                                <th>{index + 1}</th>
+                                <td>
+                                    <div className="flex  items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle h-12 w-12">
+                                                <img
+                                                    src={user?.photoURL || "https://img.daisyuiimages/profile/demo/5@94.webp"}
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">{myBill.username}</div>
+                                            <div className="text-sm opacity-50 my-1 ">{myBill.email}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className='font-bold '>{myBill.billTitle}</td>
+                                <td className=''>
+                                    {myBill.address}
+                                </td>
+
+                                <td className='font-bold'>{myBill.amount} TK</td>
+                                <td>
+                                    <p className="badge badge-ghost badge-sm">{myBill.phone}</p>
+                                </td>
+                                <td>
+                                    <p className='font-semibold'>{new Date(myBill.date).toLocaleDateString()}</p>
+                                </td>
+                                <td className='flex flex-warp gap-2'>
+                                    <button onClick={() => handleUpdateClick(myBill)} className='btn btn-primary'>Update</button>
+                                    <button onClick={() => handleDeleteBill(myBill._id)}
+                                        className='btn border-red-500 text-red-500'>Delete</button>
+                                </td>
                             </tr>)
                         }
                     </tbody>
@@ -239,35 +240,35 @@ const MyPayBills = () => {
             </div>
             {modal && updateBill && (
 
-        <dialog open className="modal modal-bottom sm:modal-middle">
-            <div onClick={e => e.stopPropagation()} className="modal-box">
-                <p className="text-center text-3xl text-primary font-semibold">Update Your Bill</p>
-                <form onSubmit={handleUpdateSubmit} className='space-y-2 '>
-                    <div className="modal-action">
-                        <div className="card-body">
-                               <fieldset className="fieldset space-y-2">
+                <dialog open className="modal modal-bottom sm:modal-middle">
+                    <div onClick={e => e.stopPropagation()} className="modal-box">
+                        <p className="text-center text-3xl text-primary font-semibold">Update Your Bill</p>
+                        <form onSubmit={handleUpdateSubmit} className='space-y-2 '>
+                            <div className="modal-action">
+                                <div className="card-body">
+                                    <fieldset className="fieldset space-y-2">
 
-                                    <label className="label">Amount</label>
-                                    <input type="number"
-                                     name='amount'
-                                      defaultValue={updateBill.amount}
-                                       onChange={handleUpdateChange} className="input w-full" placeholder="Amount" />
+                                        <label className="label">Amount</label>
+                                        <input type="number"
+                                            name='amount'
+                                            defaultValue={updateBill.amount}
+                                            onChange={handleUpdateChange} className="input w-full" placeholder="Amount" />
 
-                                    <label className="label">Your Address</label>
-                                    <input type="text" name='address' defaultValue={updateBill.address} onChange={handleUpdateChange} required className="input w-full" placeholder="Your Address" />
+                                        <label className="label">Your Address</label>
+                                        <input type="text" name='address' defaultValue={updateBill.address} onChange={handleUpdateChange} required className="input w-full" placeholder="Your Address" />
 
-                                    <label className="label">Phone Number</label>
-                                    <input type="text" name='phone' defaultValue={updateBill.phone} onChange={handleUpdateChange} required className="input w-full" placeholder="Phone Number" />
+                                        <label className="label">Phone Number</label>
+                                        <input type="text" name='phone' defaultValue={updateBill.phone} onChange={handleUpdateChange} required className="input w-full" placeholder="Phone Number" />
 
-                                    <label className="label">Date</label>
-                                    <input type="date" name='date' value={updateBill.date || ""} onChange={handleUpdateChange} required className="input w-full" placeholder="Date" />
+                                        <label className="label">Date</label>
+                                        <input type="date" name='date' value={updateBill.date || ""} onChange={handleUpdateChange} required className="input w-full" placeholder="Date" />
 
 
-                                    <div className='flex justify-end gap-2 mt-4'>
-                                        <button onClick={() => setModal(false)} type="button" className="btn btn-neutral mt-4 ">Cancel</button>
+                                        <div className='flex justify-end gap-2 mt-4'>
+                                            <button onClick={() => setModal(false)} type="button" className="btn btn-neutral mt-4 ">Cancel</button>
 
-                                        <button type="submit" className="btn btn-primary mt-4 ">Update</button>
-                                    </div>
+                                            <button type="submit" className="btn btn-primary mt-4 ">Update</button>
+                                        </div>
 
                                     </fieldset>
                                 </div>

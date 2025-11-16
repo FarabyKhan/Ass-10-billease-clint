@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import BillsCard from "../Pages/BillsCard";
+import { FaBorderAll, FaInternetExplorer } from "react-icons/fa6";
+import { MdElectricBolt } from "react-icons/md";
+import { SiFireship } from "react-icons/si";
+import { IoIosWater } from "react-icons/io";
 
 
 
@@ -33,20 +37,25 @@ const Bills = () => {
     }
     return (
         <div className='flex flex-col justify-center items-center my-5'>
-            <div className='w-11/12 mx-auto my-10 '>
-                <h1 className='text-center text-4xl mb-15 font-semibold text-primary'>All The Bills </h1>
-                <div className="dropdown dropdown-bottom">
+            <div className='w-11/12 mx-auto my-20'>
+                <h1 className='text-center text-4xl mb-5 font-semibold text-primary'>All The Bills </h1>
+                <h4 className="text-sm font-semibold mb-15  text-center">Hair you can Choose the latest utility bills available.  You can give one or multiple bills, just choose your bill   <span className="font-bold">Click </span> see details button, see you bills details then pay you bill, easy right...</h4>
+                <div className="dropdown dropdown-bottom flex justify-between items-center">
+                    <div>
 
-                    <div className="flex justify-center mb-10">
-                        
-                        <select onChange={(e) => setCategory(e.target.value)}
-                            value={category} className="select select-primary w-full max-w-xs">
-                            <option value="All">All Categories</option>
-                            <option value="Electricity">Electricity</option>
-                            <option value="Gas">Gas</option>
-                            <option value="Water">Water</option>
-                            <option value="Internet">Internet</option>
-                        </select>
+                    </div>
+                    <div className="flex justify-center gap-3">
+                        <h2 className="text-secondary text-xl font-bold mt-1">Choose Your Category</h2>
+                        <div className="flex justify-between  mb-10">
+                            <select onChange={(e) => setCategory(e.target.value)}
+                                value={category} className="select select-primary w-full max-w-xs font-semibold rounded-xl">
+                                <option value="All"><FaBorderAll /> All Categories</option>
+                                <option value="Electricity"><MdElectricBolt /> Electricity</option>
+                                <option value="Gas"><SiFireship /> Gas</option>
+                                <option value="Water"><IoIosWater /> Water</option>
+                                <option value="Internet"><FaInternetExplorer /> Internet</option>
+                            </select>
+                        </div>
                     </div>
 
                 </div>
