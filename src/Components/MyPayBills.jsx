@@ -89,7 +89,12 @@ const MyPayBills = () => {
 
         fetch(`http://localhost:3000/myBills/${updateBill._id}`, {
             method: "PUT",
-            body: JSON.stringify(updateInfo)
+            
+             headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${user.accessToken}`
+                },
+                body: JSON.stringify(updateInfo),
         })
             .then(res => res.json())
             .then(data => {
@@ -167,19 +172,19 @@ const MyPayBills = () => {
             <div className='text-center mt-30'>
                 <h1 className='my-20 text-primary text-3xl font-bold'>My Payed Bills</h1>
             </div>
-            <div className='flex justify-between items-center mb-15 text-accent text-xl font-bold mx-10 p-5 rounded-2xl shadow-xl'>
-                <h2>Total Bills: <span className='text-secondary font-semibold'>{myBills.length}</span> </h2>
-                <div className='flex justify-center items-center gap-10'>
-                    <h2 className='flex justify-center items-center gap-2'>Total Amount Paid: <span className='text-secondary font-semibold flex justify-center items-center'><FaBangladeshiTakaSign /> {totalAmount}</span> </h2>
+            <div className='flex flex-col md:flex-row justify-between items-center mb-15 text-accent text-xl font-bold mx-10 p-5 rounded-2xl shadow-xl gap-0 md:gap-5 '>
+          <h2 className='text-lg md:text-xl '>Total Bills: <span className='text-secondary font-normal md:font-semibold'>{myBills.length}</span></h2>
+                
+                    <h2 className='flex justify-center items-center gap-2 text-lg md:text-xl'>Total Amount Paid: <span className='text-secondary font:normal md:font-semibold flex justify-center items-center'><FaBangladeshiTakaSign /> {totalAmount}</span> </h2>
 
                     <button onClick={handleDownloadPdf} className='btn  text-red-500 font-semibold flex justify-center border-red-500'> <img src="/pdf.png" className='w-8 h-8' alt="" /><span> Download as PDF</span></button>
-                </div>
+                
 
             </div>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full min-w-max">
                     {/* head */}
-                    <thead>
+                    <thead className='bg-blue-500 text-white'>
                         <tr>
                             <th>
                                 <label>
