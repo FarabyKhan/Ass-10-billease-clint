@@ -4,6 +4,7 @@ import LatestBills from './LatestBills';
 import Category from './Category';
 import Welcome from './Welcome';
 import Review from './Review';
+import Join from './Join';
 
 const latestBillsPromise = fetch('http://localhost:3000/latest-bills').then(res=> res.json())
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
           <LatestBills latestBillsPromise={latestBillsPromise}></LatestBills>
           <section className='my-30 '>
             <Review></Review>
+            <Join></Join>
           </section>
         </div>
     );
