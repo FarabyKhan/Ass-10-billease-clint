@@ -4,6 +4,7 @@ import { FaBorderAll, FaInternetExplorer } from "react-icons/fa6";
 import { MdElectricBolt } from "react-icons/md";
 import { SiFireship } from "react-icons/si";
 import { IoIosWater } from "react-icons/io";
+import Loading from "../Utility/Loading";
 
 
 
@@ -14,7 +15,7 @@ const Bills = () => {
 
     useEffect(() => {
 
-        let url = 'http://localhost:3000/bills'
+        let url = 'https://billease-server.vercel.app/bills'
         if (category !== "All") {
             url += `?category=${category}`
         }
@@ -33,7 +34,7 @@ const Bills = () => {
 
 
     if (loading) {
-        return <p className="text-2xl">Loading.....</p>
+        return <Loading></Loading>
     }
     return (
         <div className='flex flex-col justify-center items-center my-5'>
@@ -60,7 +61,7 @@ const Bills = () => {
 
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-11/12 mx-auto'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-11/12 mx-auto '>
                     {
                         bills.map((bill, index) => <BillsCard key={index} bill={bill}></BillsCard>)
                     }

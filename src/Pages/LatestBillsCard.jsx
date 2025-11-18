@@ -13,12 +13,12 @@ const LatestBillsCard = ({bills}) => {
          transition ease-in-out ">
   <figure>
     <img
-    className='w-full h-[250px] object-cover'
+    className='w-full h-[350px] object-cover'
       src={image}
       alt={category} />
   </figure>
   <div className="card-body space-y-3">
-    <h2 className="card-title font-bold text-xl md:text-2xl my-5">
+    <h2 className="card-title font-bold text-xl md:text-2xl my-5 ">
       {title}
     </h2>
 
@@ -27,7 +27,7 @@ const LatestBillsCard = ({bills}) => {
           </span></p>
       <p className='font-semibold text-lg my-2 text-center flex items-center gap-1 text-accent'><SlCalender />Date: <span className='text-red-500'>{date}</span></p>
      </div>
-     <p className='font-bold text-sm md:text-xl my-2 text-center flex items-center gap-1 text-accent'><FaLocationDot />Location: <span className='text-black '>{location}</span></p>
+     <p className='font-bold text-sm md:text-xl my-2 text-center flex items-center gap-1 text-accent'><FaLocationDot />Location: <span >{location}</span></p>
     
   </div>   
   <Link to={`/billDetails/${_id}`} className='btn btn-primary py-3 rounded-xl'><CgDetailsMore /> See Details</Link>                   

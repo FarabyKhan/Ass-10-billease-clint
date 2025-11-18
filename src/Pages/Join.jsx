@@ -9,12 +9,16 @@ const Join = () => {
             
         <div className='absolute inset-0 flex flex-col justify-center items-center text-center px-4 '>
             <h1 className='text-white text-5xl font-bold mb-5'>Join Our Community</h1>
-            <div className=' flex w-full max-w-md bg-white rounded-full shadow-lg overflow-hidden'>
+            <div className='flex bg-white rounded-full shadow-lg overflow-hidden w-full max-w-md'>
             <input type="email"
-             placeholder="Enter Your Email Address"
-              className="px-4 py-3 w-full outline-none" />
-              <button className=' btn-primary text-white px-7 font-semibold'>Join</button>
+             placeholder='Enter Your Email Address'
+             className='px-4 py-3 w-full outline none'
+               />
+               <button className='btn btn-primary text-white px-6 py-6 font-semibold'>Join</button>
             </div>
+            
+
+<div className="validator-hint hidden">Enter valid email address</div>
         </div>
             
         </div>

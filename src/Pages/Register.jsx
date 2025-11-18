@@ -57,22 +57,22 @@ const Register = () => {
                             image: photoURL,
                         }
                         //create user in the database
-                        fetch('http://localhost:3000/user', {
+                        fetch('https://billease-server.vercel.app/user', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
                             },
                             body: JSON.stringify(newUser)
                         })
-                        .then(res=> res.json())
-                        .then(data=>{
-                            console.log('User save to the collection:',data); 
-                               navigate("/")
-                        })
-                        .catch((err)=>{
-                            console.error('Error saving user:',err)
-                         
-                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log('User save to the collection:', data);
+                                navigate("/")
+                            })
+                            .catch((err) => {
+                                console.error('Error saving user:', err)
+
+                            })
                     })
                     .catch((error) => {
                         toast.error(error.message)
@@ -99,7 +99,7 @@ const Register = () => {
                     image: result.user.photoURL,
                 }
                 //create user in the database
-                fetch('http://localhost:3000/user', {
+                fetch('https://billease-server.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -130,7 +130,11 @@ const Register = () => {
         <form onSubmit={handleRegister} className='flex justify-center min-h-screen my-30 items-center '>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
                 <div className="card-body border rounded-2xl shadow-2xl">
-                    <h1 className="text-5xl font-bold my-5">Register now!</h1>
+                    <h1 className="text-5xl font-bold my-5 text-center">Register With</h1>
+                    <button className='flex justify-center items-center gap-1 '>
+                        <h1 className='text-5xl font-bold  text-[#2e269c] mb-10'>bill<span className='text-5xl
+                      text-[#DC143C]'>ease</span></h1>
+                    </button>
                     <fieldset className="fieldset space-y-3 ">
                         {/* Name */}
                         <div className='space-y-2 '>
@@ -158,7 +162,10 @@ const Register = () => {
                             <p className='text-sm text-red-500 my-2'>{passError}</p>
                         </div>
 
-                        <button className="btn btn-neutral mt-4">Register</button>
+                        <button className="btn btn-primary mt-4 ">Register</button>
+                        <div className='text-center'>
+                            <p className='divider text-sm font-semibold'>Or</p>
+                        </div>
                         <button
                             onClick={handleGoogleSignIn}
                             className="btn btn-outline btn-info bg-white text-black border-[#e5e5e5] my-3">

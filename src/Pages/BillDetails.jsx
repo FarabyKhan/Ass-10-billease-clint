@@ -11,15 +11,17 @@ import Swal from 'sweetalert2';
 const BillDetails = () => {
     const { id } = useParams()
     const [bill, setBill] = useState({});
-    const [loading, setLoading] = useState({})
+    const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState("")
     const [modal, setModal] = useState(false)
     const [paid, setPaid] = useState(false)
+    
 
     const { user } = use(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/bills/${id}`, {
+        setLoading(true)
+        fetch(`https://billease-server.vercel.app/bills/${id}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
             }
@@ -34,10 +36,10 @@ const BillDetails = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/myBills?email=${user.email}`,{
+            fetch(`https://billease-server.vercel.app/myBills?email=${user.email}`, {
                 headers: {
-                authorization: `Bearer ${user.accessToken}`
-            }
+                    authorization: `Bearer ${user.accessToken}`
+                }
             }
 
             )
@@ -96,7 +98,7 @@ const BillDetails = () => {
 
         }
 
-        fetch('http://localhost:3000/myBills', {
+        fetch('https://billease-server.vercel.app/myBills', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -111,7 +113,7 @@ const BillDetails = () => {
 
                 if (data.message === "Payment is successful") {
                     Swal.fire({
-                        position: "middle",
+                        position: "center",
                         icon: "success",
                         title: "Payment is successful",
                         text: 'Your bill has been paid successfully.',
@@ -122,7 +124,7 @@ const BillDetails = () => {
                 }
                 else {
                     Swal.fire({
-                        position: "middle",
+                        position: "center",
                         icon: "error",
                         title: "Payment Failed",
                         text: data.message,
@@ -156,12 +158,12 @@ const BillDetails = () => {
                         src={image}
                         alt={category} />
                 </figure>
-                <div className="flex flex-col w-11/12 md:w-4/12 items-start space-y-3 my-20">
-                    <div className='space-y-3 flex justify-center items-center gap-2'>
-                        <img src={categoryLogo} className='w-[50px] h-[50px] mt-4' alt={category} />
+                <div className="flex flex-col w-11/12 md:w-4/12 items-center space-y-3 my-20">
+                    <div className='space-y-3 flex justify-center items-center mx-10 md:mx-auto gap-3 '>
+                        <img src={categoryLogo} className='w-[30px] h-[40px] mt-4' alt={category} />
                         <h2 className="card-title text-2xl text-accent"> {title}</h2>
                     </div>
-                    <div className='w-full border-b border-primary text-center space-y-5 pb-10 '>
+                    <div className='w-full border-b border-primary text-center space-y-5 pb-10 my-5'>
                         <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/category.png" alt="" className='w-[30px] h-[30px]' />Category:<span className='text-primary'>{category}</span></p>
 
                         <p className='text-start text-accent text-xl font-semibold flex justify-center items-center gap-3'><img src="/location.png" alt="" className='w-[30px] h-[30px]' />Location:<span>{location}</span></p>
@@ -187,8 +189,8 @@ const BillDetails = () => {
 
             </div>
             <div className=" border-t border-base-300 pt-8 mx-10 my-20">
-                <h1 className='text-2xl font-bold text-accent mb-3 text-center md:text-left'>Description</h1>
-                <p className='text-gray-600 leading-relaxed text-justify'>{description}</p>
+                <h1 className='text-2xl font-bold text-primary mb-3 text-center md:text-left'>Description</h1>
+                <p className='leading-relaxed text-justify'>{description}</p>
             </div>
 
             {modal && (

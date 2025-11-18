@@ -1,14 +1,16 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import MyLink from '../Utility/MyLink';
 import { AuthContext } from '../Provider/AuthContext';
 import { FaUser } from 'react-icons/fa';
 import { HashLoader } from 'react-spinners';
+import { Monitor, MonitorDot } from 'lucide-react';
 
 
 const Navbar = () => {
 
   const { user, signOutUser, loading } = use(AuthContext)
+  
 
   const links = <>
     <MyLink className={'text-xl font-bold'} to={'/'}> Home</MyLink>
@@ -16,6 +18,26 @@ const Navbar = () => {
     <MyLink className={'text-xl font-bold'} to={'/myPayBills'}>My Pay Bills</MyLink>
     <MyLink className={'text-xl font-bold'} to={'/my-Profile'}>My Profile</MyLink>
   </>
+
+  
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  useEffect(()=>{
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme",theme)
+    localStorage.setItem("theme", theme)
+  },[theme])
+
+
+  const handleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+   
+  };
+
+
 
   const handleSignOut = () => {
     signOutUser()
@@ -55,7 +77,20 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-3">
-          {loading ? <HashLoader /> :
+          
+          <label className='cursor-pointer flex items-center gap-2'>
+              <input
+           onChange={handleTheme}
+           type="checkbox"
+           defaultChecked={localStorage.getItem('theme') === "dark"}
+           className="hidden"/> 
+           { theme === "light"? (<Monitor/>) : (<MonitorDot/>)
+            
+           }
+             </label>
+
+           
+          {loading ? <HashLoader color="#191186" /> :
             (user ? (
               <div className='flex justify-between items-center gap-3'>
                 <div className="dropdown dropdown-end z-50 ">
@@ -74,7 +109,7 @@ const Navbar = () => {
                   </div>
                   <ul
                     tabIndex="-1"
-                    className="menu  menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+                    className="menu  menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow space-y-2"
                   >
                     <div className=" pb-3 border-b border-b-gray-200">
                       <li className="text-sm font-bold">{user?.displayName}</li>
@@ -85,6 +120,9 @@ const Navbar = () => {
                         <FaUser /> My Profile
                       </Link>
                     </li>
+
+                    
+             
                   <li className='mt-1'>
                     <button onClick={handleSignOut} className='btn btn-primary'>Logout</button>
                   </li>

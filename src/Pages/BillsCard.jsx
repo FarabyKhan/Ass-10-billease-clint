@@ -24,7 +24,7 @@ const BillsCard = ({bill}) => {
               <p className="font-semibold text-lg my-1 flex items-center gap-1 text-accent"> <TbCategory />Category :<span className='text-primary'>{category}
                   </span></p>
              </div>
-             <p className='font-semibold text-lg my-1 text-center flex items-center gap-1 text-accent'><FaLocationDot />Location: <span className='text-black'>{location}</span></p>
+             <p className='font-semibold text-lg my-1 text-center flex items-center gap-1 text-accent'><FaLocationDot />Location: <span >{location}</span></p>
              <p className='font-semibold text-xl my-2 text-center flex items-center  text-accent'>Amount:<span className='text-2xl'><TbCurrencyTaka /></span><span className='text-green-700 '>{amount}</span></p>    
           </div>     
           <Link to={`/billDetails/${_id}`} className='btn btn-primary py-3 rounded-xl'><CgDetailsMore /> See Details</Link>                 

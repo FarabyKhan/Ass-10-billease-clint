@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const LatestBills = ({latestBillsPromise}) => {
     const filteredBills = use(latestBillsPromise)
-    console.log(filteredBills);
+    // console.log(filteredBills);
     
     return (
         <div className='flex flex-col justify-center items-center my-5'>

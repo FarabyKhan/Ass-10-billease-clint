@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { HashLoader } from 'react-spinners';
 
 const MyPayBills = () => {
     const { user } = use(AuthContext)
@@ -11,10 +12,12 @@ const MyPayBills = () => {
     const [modal, setModal] = useState(false)
     const [updateBill, setUpdateBill] = useState(null)
     const [selectedBill, setSelectedBill] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/myBills?email=${user.email}`, {
+            setLoading(true)
+            fetch(`https://billease-server.vercel.app/myBills?email=${user.email}`, {
                 headers: {
                     authorization: `Bearer ${user.accessToken}`
                 }
@@ -23,6 +26,7 @@ const MyPayBills = () => {
                 .then(data => {
                     // console.log(data);
                     setMyBills(data)
+                    setLoading(false)
                 })
         }
     }, [user?.email, user])
@@ -44,8 +48,11 @@ const MyPayBills = () => {
             if (result.isConfirmed) {
 
 
-                fetch(`http://localhost:3000/myBills/${_id}`, {
-                    method: 'DELETE'
+                fetch(`https://billease-server.vercel.app/myBills/${_id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        authorization: `Bearer ${user.accessToken}`
+                    }
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -87,20 +94,20 @@ const MyPayBills = () => {
         }
 
 
-        fetch(`http://localhost:3000/myBills/${updateBill._id}`, {
+        fetch(`https://billease-server.vercel.app/myBills/${updateBill._id}`, {
             method: "PUT",
-            
-             headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${user.accessToken}`
-                },
-                body: JSON.stringify(updateInfo),
+
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${user.accessToken}`
+            },
+            body: JSON.stringify(updateInfo),
         })
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
                     Swal.fire({
-                        position: "middle",
+                        position: "center",
                         icon: "success",
                         title: "Payment is successful",
                         text: 'Your bill has been updated successfully.',
@@ -173,15 +180,18 @@ const MyPayBills = () => {
                 <h1 className='my-20 text-primary text-3xl font-bold'>My Payed Bills</h1>
             </div>
             <div className='flex flex-col md:flex-row justify-between items-center mb-15 text-accent text-xl font-bold mx-10 p-5 rounded-2xl shadow-xl gap-0 md:gap-5 '>
-          <h2 className='text-lg md:text-xl '>Total Bills: <span className='text-secondary font-normal md:font-semibold'>{myBills.length}</span></h2>
-                
-                    <h2 className='flex justify-center items-center gap-2 text-lg md:text-xl'>Total Amount Paid: <span className='text-secondary font:normal md:font-semibold flex justify-center items-center'><FaBangladeshiTakaSign /> {totalAmount}</span> </h2>
+                <h2 className='text-lg md:text-xl '>Total Bills: <span className='text-secondary font-normal md:font-semibold'>{myBills.length}</span></h2>
 
-                    <button onClick={handleDownloadPdf} className='btn  text-red-500 font-semibold flex justify-center border-red-500'> <img src="/pdf.png" className='w-8 h-8' alt="" /><span> Download as PDF</span></button>
-                
+                <h2 className='flex justify-center items-center gap-2 text-lg md:text-xl'>Total Amount Paid: <span className='text-secondary font:normal md:font-semibold flex justify-center items-center'><FaBangladeshiTakaSign /> {totalAmount}</span> </h2>
+
+                <button onClick={handleDownloadPdf} className='btn  text-red-500 font-semibold flex justify-center border-red-500'> <img src="/pdf.png" className='w-8 h-8' alt="" /><span> Download as PDF</span></button>
+
 
             </div>
-            <div className="overflow-x-auto w-full">
+            {
+                loading ? (<div className='w-full py-20 flex justify-center'>
+                    <HashLoader size={80} color='#2563eb'/>
+                </div>) : (<div className="overflow-x-auto w-full">
                 <table className="table w-full min-w-max">
                     {/* head */}
                     <thead className='bg-blue-500 text-white'>
@@ -242,7 +252,9 @@ const MyPayBills = () => {
                         }
                     </tbody>
                 </table>
-            </div>
+            </div>)
+            }
+            
             {modal && updateBill && (
 
                 <dialog open className="modal modal-bottom sm:modal-middle">
