@@ -4,7 +4,7 @@ const Category = () => {
     return (
         <div className='my-30 '>
             <h1 className='text-center text-4xl mb-15 font-semibold text-primary'>Category Of Our Utilities</h1>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ml-10  md:ml-40   w-11/12 mx-auto'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ml-10  md:ml-40   w-11/12 mx-auto '>
 
      <div className="card bg-base-100 w-70 shadow-2xl  hover:scale-105
          transition ease-in-out border-0">
